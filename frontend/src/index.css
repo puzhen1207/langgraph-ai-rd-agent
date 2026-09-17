@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+ * Theme variables.
+ *
+ * Light values are the original palette. Dark values keep the same warm
+ * character: paper-* stays the surface ramp (near-black warm greys), ink-*
+ * stays the text ramp (near-white), and the indigo/ochre ramps are lifted
+ * so text roles keep >= 4.5:1 against the flipped surfaces.
+ *
+ * Every component keeps its semantic Tailwind class; only these values
+ * change when the .dark class lands on <html>.
+ * ------------------------------------------------------------------------- */
+:root {
+  /* brand — muted indigo */
+  --c-brand-50: 242 244 250;
+  --c-brand-100: 228 232 244;
+  --c-brand-200: 201 209 233;
+  --c-brand-300: 165 177 217;
+  --c-brand-400: 125 140 196;
+  --c-brand-500: 92 108 174;
+  --c-brand-600: 73 88 145;
+  --c-brand-700: 60 72 117;
+  --c-brand-800: 52 62 97;
+  --c-brand-900: 46 54 82;
+
+  /* ink — warm neutral text ramp */
+  --c-ink-50: 247 246 244;
+  --c-ink-100: 238 236 232;
+  --c-ink-200: 221 217 210;
+  --c-ink-300: 189 183 172;
+  --c-ink-400: 148 141 128;
+  --c-ink-500: 111 106 95;
+  --c-ink-600: 87 83 74;
+  --c-ink-700: 66 63 56;
+  --c-ink-800: 46 43 38;
+  --c-ink-900: 28 26 23;
+
+  /* paper — warm neutral surface ramp */
+  --c-paper-50: 253 252 250;
+  --c-paper-100: 248 246 242;
+  --c-paper-200: 241 238 232;
+  --c-paper-300: 230 226 217;
+
+  /* mark — citation ochre */
+  --c-mark-50: 251 245 236;
+  --c-mark-100: 244 231 212;
+  --c-mark-500: 181 121 58;
+  --c-mark-600: 150 98 44;
+  --c-mark-700: 122 79 36;
+
+  /* code — fixed "terminal" surface, same idea in both themes */
+  --c-code-bg: 28 26 23;
+  --c-code-text: 238 236 232;
+}
+
+.dark {
+  /* brand — indigo lifted for dark surfaces */
+  --c-brand-50: 34 39 55;
+  --c-brand-100: 38 43 61;
+  --c-brand-200: 51 58 82;
+  --c-brand-300: 65 74 104;
+  --c-brand-400: 92 108 174;
+  --c-brand-500: 125 140 196;
+  --c-brand-600: 152 164 213;
+  --c-brand-700: 174 184 221;
+  --c-brand-800: 198 206 232;
+  --c-brand-900: 226 230 244;
+
+  /* ink — flipped: faint greys for secondary text */
+  --c-ink-50: 40 38 34;
+  --c-ink-100: 53 50 45;
+  --c-ink-200: 76 72 64;
+  --c-ink-300: 100 94 82;
+  --c-ink-400: 125 118 106;
+  --c-ink-500: 154 145 132;
+  --c-ink-600: 179 171 160;
+  --c-ink-700: 207 199 187;
+  --c-ink-800: 226 221 212;
+  --c-ink-900: 240 236 229;
+
+  /* paper — flipped: warm near-black surfaces */
+  --c-paper-50: 25 23 20;
+  --c-paper-100: 31 29 26;
+  --c-paper-200: 40 37 33;
+  --c-paper-300: 59 55 48;
+
+  /* mark — ochre lifted for dark surfaces */
+  --c-mark-50: 42 33 22;
+  --c-mark-100: 77 61 36;
+  --c-mark-500: 200 144 79;
+  --c-mark-600: 214 162 102;
+  --c-mark-700: 227 176 119;
+
+  --c-code-bg: 20 18 15;
+  --c-code-text: 230 226 218;
+}
+
+@layer base {
+  html, body, #root {
+    @apply h-full;
+  }
+  body {
+    @apply font-sans antialiased bg-paper-100 text-ink-800;
+  }
+  /* Headings inside answers use the serif face so long research answers read
+     like a document rather than a chat log. */
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .prose pre {
+    @apply my-2 rounded-lg overflow-x-auto;
+  }
+  .prose p {
+    @apply my-1;
+  }
+  .prose ul {
+    @apply my-1;
+  }
+  .prose li {
+    @apply my-0.5;
+  }
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply font-semibold text-ink-900 mt-4 mb-1.5;
+  }
+  .prose h1 { @apply text-base; }
+  .prose h2 { @apply text-[15px]; }
+  .prose h3 { @apply text-sm; }
+  .prose blockquote {
+    @apply border-l-2 border-brand-300 pl-3 text-ink-500 italic;
+  }
+  .prose a {
+    @apply text-brand-600 underline underline-offset-2;
+  }
+  .prose table {
+    @apply text-xs;
+  }
+  .prose th {
+    @apply bg-paper-200 font-semibold px-2 py-1 border border-paper-300 text-ink-700;
+  }
+  .prose td {
+    @apply px-2 py-1 border border-paper-200;
+  }
+  .prose hr {
+    @apply border-paper-300 my-4;
+  }
+  /* Citations keep the ochre accent so they never look like links. */
+  .citation {
+    @apply inline-flex items-center gap-1 rounded-md border border-mark-100 bg-mark-50
+           px-1.5 py-0.5 text-[11px] text-mark-700;
+  }
+  /* The base a citation came from: outlined only, so it reads as context
+     rather than as a second source competing with the filename chips. */
+  .citation-kb {
+    @apply inline-flex items-center rounded border border-mark-100 px-1.5 py-0.5
+           text-[11px] text-mark-600;
+  }
+}

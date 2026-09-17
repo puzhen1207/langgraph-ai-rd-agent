@@ -1,0 +1,52 @@
+# Core
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+pydantic==2.7.1
+pydantic-settings==2.2.1
+python-dotenv==1.0.1
+
+# LangChain & LangGraph
+langchain==0.2.5
+langchain-openai==0.1.13
+langchain-community==0.2.5
+langgraph==0.0.51
+langchain-chroma==0.1.1
+
+# Vector DB
+chromadb==0.5.3
+
+# BM25
+rank-bm25==0.2.2
+
+# Embeddings & Reranker (local models)
+sentence-transformers==3.0.1
+FlagEmbedding==1.2.10
+
+# ONNX embedding path (EMBEDDING_MODE=onnx), which runs BGE-M3 without PyTorch.
+# Both also arrive transitively via chromadb, but the mode is a documented
+# feature so it should not depend on another package's dependency list.
+# tokenizers is ranged on purpose: sentence-transformers/transformers pin it too,
+# and a hard pin here would make the two embedding modes mutually exclusive.
+onnxruntime==1.27.0
+tokenizers>=0.13.2
+
+# Memory / Cache
+redis==5.0.6
+
+# HTTP
+httpx==0.27.0
+
+# Document Processing
+python-docx==1.1.0
+markdown==3.6
+tiktoken==0.7.0
+pdfplumber==0.11.4
+
+# Logging & Monitoring
+structlog==24.2.0
+prometheus-fastapi-instrumentator==6.1.0
+
+# Utilities
+aiofiles==23.2.1
+python-jose[cryptography]==3.3.0
