@@ -150,7 +150,7 @@ huggingface-cli download BAAI/bge-reranker-base --include "onnx/*" --local-dir D
 ```bash
 # 终端 1 —— 后端
 cd backend
-python -m uvicorn main:app --host 127.0.0.1 --port 8002
+python -m uvicorn main:app --host 127.0.0.1 --port 8002 #如果返回端口占用，可以自行修改端口
 
 # 终端 2 —— 前端
 cd frontend
